@@ -78,6 +78,10 @@ class Handler extends ExceptionHandler
         if ($exception instanceof NotFoundHttpException) {
             return $this->errorResponse('The spesified URL cannot found', 404);
         }
+
+        if ($exception instanceof HttpException) {
+            return $this->errorResponse($exception->getMessage(), $exception->getStatusCode());
+        }
         return parent::render($request, $exception);
     }
 
